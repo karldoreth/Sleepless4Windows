@@ -94,17 +94,24 @@ namespace Sleepless
 
         static void SetEnergyScheme(int TheValue)
         {
-            string EnergieSchema = "381b4222-f694-41f0-9685-ff5bb260df2e"; //Ausbalanciert
-            string Untergruppe = "4f971e89-eebd-4455-a8de-9e59040e7347"; //Netzschalter und Zuklappen
-            string Einstellung = "5ca83367-6e45-459f-a27b-476b1d01c936"; //Zuklappen
-            string Wert = TheValue.ToString(); //0 = Nichts Unternehmen, 1 = Energie Sparen
-            string Argumente = String.Format("/SETACVALUEINDEX {0} {1} {2} {3}", EnergieSchema, Untergruppe, Einstellung, Wert); //SETDCVALUEINDEX regelt nur Wechselstromberieb
+            //string EnergieSchema = "381b4222-f694-41f0-9685-ff5bb260df2e"; //Ausbalanciert
+            //string Untergruppe = "4f971e89-eebd-4455-a8de-9e59040e7347"; //Netzschalter und Zuklappen
+            //string Einstellung = "5ca83367-6e45-459f-a27b-476b1d01c936"; //Zuklappen
+            //string Wert = TheValue.ToString(); //0 = Nichts Unternehmen, 1 = Energie Sparen
+            //string Argumente = String.Format("/SETACVALUEINDEX {0} {1} {2} {3}", EnergieSchema, Untergruppe, Einstellung, Wert); //SETDCVALUEINDEX regelt nur Wechselstromberieb
 
-            //
+            string Argumente = String.Format("/setacvalueindex scheme_current sub_buttons lidaction {0}", TheValue);
             var psi = new ProcessStartInfo("powercfg", Argumente);
             psi.CreateNoWindow = true;
             psi.UseShellExecute = false;
             Process.Start(psi);
+
+            string Argumente2 = String.Format("/setactive {0}", "scheme_current"); 
+
+            var psi2 = new ProcessStartInfo("powercfg", Argumente2);
+            psi2.CreateNoWindow = true;
+            psi2.UseShellExecute = false;
+            Process.Start(psi2);
         }
     }
 }
