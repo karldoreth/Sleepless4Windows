@@ -100,14 +100,15 @@ namespace Sleepless
             //string Wert = TheValue.ToString(); //0 = Nichts Unternehmen, 1 = Energie Sparen
             //string Argumente = String.Format("/SETACVALUEINDEX {0} {1} {2} {3}", EnergieSchema, Untergruppe, Einstellung, Wert); //SETDCVALUEINDEX regelt nur Wechselstromberieb
 
+            //By using the plain_names instead of the guid, we can use the application on any computer.
             string Argumente = String.Format("/setacvalueindex scheme_current sub_buttons lidaction {0}", TheValue);
             var psi = new ProcessStartInfo("powercfg", Argumente);
             psi.CreateNoWindow = true;
             psi.UseShellExecute = false;
             Process.Start(psi);
 
+            //Needs to be activated for to make the changes take effect.
             string Argumente2 = String.Format("/setactive {0}", "scheme_current"); 
-
             var psi2 = new ProcessStartInfo("powercfg", Argumente2);
             psi2.CreateNoWindow = true;
             psi2.UseShellExecute = false;
